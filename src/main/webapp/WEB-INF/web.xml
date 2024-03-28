@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app
+    version="4.0"
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+
+    <!-- Dispatcher Servlet -->
+    <servlet>
+        <servlet-name>MyDispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	<init-param>
+            <param-name>contextConfigLocation</param-name> <!-- This is a property within the DispatcherServlet class -->
+            <param-value>/WEB-INF/spring-servlet.xml</param-value> <!-- File name: spring-servlet.xml | File location: /WEB-INF -->
+	</init-param>
+        <load-on-startup>1</load-on-startup> <!-- Specifies the order in which the DispatcherServlet should be initialized. A value of 1 means it should be initialized when the web application starts -->
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MyDispatcherServlet</servlet-name>
+        <url-pattern>/</url-pattern> <!-- Means all requests (http://localhost:4869/login-app-spring/...) will be handled by the DispatcherServlet (MyDispatcherServlet) -->
+    </servlet-mapping>
+
+    <!-- Session Timeout -->
+    <session-config>
+        <session-timeout>30</session-timeout> <!-- If there is no interaction with your web application for 30 minutes, the server will consider the session as inactive and may invalidate it -->
+    </session-config>
+</web-app>

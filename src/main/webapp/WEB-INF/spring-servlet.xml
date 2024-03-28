@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- Enable support for processing annotations -->
+    <mvc:annotation-driven/>
+
+    <!-- Component scanning to detect our controllers -->
+    <context:component-scan base-package="dev.arzak21st.loginapp.controllers"/>
+
+    <!-- View Resolver configuration for our views (JSPs) -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- Configuration for handling static resources (css, js, ...) -->
+    <mvc:resources mapping="/stisla/dist/assets/**" location="/stisla/dist/assets/"/>
+
+    <!--
+         Define the data source for MySQL
+        <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  Represents your database connection information
+            <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="url" value="jdbc:mysql://localhost:3306/login_app_db"/>
+            <property name="username" value="root"/>
+            <property name="password" value="pass"/>
+        </bean>
+
+         Use 'dataSource' to establish the database connection
+        <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">  Defines a bean named "jdbcTemplate" of the class JdbcTemplate
+            <property name="dataSource" ref="dataSource"/>
+        </bean>
+
+         Inject 'jdbcTemplate' into 'saveRepository' through the constructor
+        <bean id="saveRepository" class="dev.arzak21st.loginapp.repositories.SaveRepository">
+            <constructor-arg ref="jdbcTemplate"/>
+        </bean>
+    -->
+</beans>

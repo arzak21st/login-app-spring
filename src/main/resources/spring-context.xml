@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- Define the data source for MySQL -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> <!-- Represents your database connection information -->
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/login_app_db"/>
+        <property name="username" value="root"/> <!-- Change to your MySQL username -->
+        <property name="password" value="pass"/> <!-- Change to your MySQL password -->
+    </bean>
+
+    <!-- Use 'dataSource' to establish the database connection -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"> <!-- Defines a bean named "jdbcTemplate" of the class JdbcTemplate -->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- Inject 'jdbcTemplate' into 'saveRepository', 'getRepository', 'updateRepository', 'removeRepository' through their constructors -->
+    <bean id="saveRepository" class="dev.arzak21st.loginapp.repositories.SaveRepository">
+        <constructor-arg ref="jdbcTemplate"/>
+    </bean>
+    <bean id="getRepository" class="dev.arzak21st.loginapp.repositories.GetRepository">
+        <constructor-arg ref="jdbcTemplate"/>
+    </bean>
+    <bean id="updateRepository" class="dev.arzak21st.loginapp.repositories.UpdateRepository">
+        <constructor-arg ref="jdbcTemplate"/>
+    </bean>
+    <bean id="removeRepository" class="dev.arzak21st.loginapp.repositories.RemoveRepository">
+        <constructor-arg ref="jdbcTemplate"/>
+    </bean>
+</beans>
